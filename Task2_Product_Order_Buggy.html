@@ -1,135 +1,171 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Product Order</title>
 
     <style>
         body {
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             background-color: #eeeeee;
         }
-        #mainTitle
-        {
-            text-align:center;
+
+        #mainTitle {
+            text-align: center;
             color: darkred;
         }
-        orderBox {
+
+        #orderBox {
             width: 450px;
             border: 2px solid black;
             margin: 20px auto;
-            padding: 20;
+            padding: 20px;
         }
-        .field 
-        {
+
+        .field {
             margin-bottom: 15px;
         }
-        .bill
-        {
+
+        .bill {
             width: 450px;
             border: 2px solid green;
             margin: 20px auto;
             padding: 15px;
         }
-        #orderButton
-        {
+
+        #orderButton {
             padding: 10px;
             background: lightblue;
         }
     </style>
 </head>
+
 <body>
-<h1 id="mainTitle">Online Product Order</h1>
-<div id="orderBox">
-    <div class="field">
-        <label for="customer">Customer Name:</label>
-        <input type="text" id="customer">
+
+    <h1 id="mainTitle">Online Product Order</h1>
+
+    <div id="orderBox">
+
+        <div class="field">
+            <label for="customer">Customer Name:</label>
+            <input type="text" id="customer">
+        </div>
+
+        <div class="field">
+            <label for="product">Select Product:</label>
+            <select id="product">
+                <option value="">Select Product</option>
+                <option value="Laptop">Laptop - Rs. 50000</option>
+                <option value="Mobile">Mobile - Rs. 20000</option>
+                <option value="Keyboard">Keyboard - Rs. 1500</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" min="1">
+        </div>
+
+        <button id="orderButton" onclick="calculateBill()">
+            Generate Bill
+        </button>
+
     </div>
-    
-    <div class="field">
-        <label for="product">Select Product:</label>
-        <select id="product">
-            <option value="">Select Product</option>
-            <option value="Laptop">Laptop - Rs. 50000</option>
-            <option value="Mobile">Mobile - Rs. 20000</option>
-            <option value="Keyboard">Keyboard - Rs. 1500</option>
-        </select>
-    </div>
-    <div class="field">
-        <label for="quantity">Quantity:</label>
-        <input type="text" id="quantity">
+
+    <div id="billBox" class="bill">
+        Bill will appear here.
     </div>
 
-    <button id="orderButton"
-            onclick="calculate()">
-        Generate Bill
-    </button>
-</div>
+    <script>
+        function calculateBill() {
 
-<div id="billBox" class="bill">
-    Bill will appear here.
-</div>
-<script>
+            // Read input
+            var customer = document.getElementById("customer").value.trim();
+            var product = document.getElementById("product").value;
+            var quantityInput = document.getElementById("quantity").value.trim();
 
-function calculateBill() {
+            // Validate Customer
+            if (customer === "") {
+                alert("Enter Customer Name");
+                return;
+            }
 
-    var customer =
-        document.getElementByID("customer").value;
+            // Validate Product
+            if (product === "") {
+                alert("Select a Product");
+                return;
+            }
 
-    var product =
-        document.getElementById("products").value;
+            // Validate Quantity
+            if (quantityInput === "") {
+                alert("Enter Quantity");
+                return;
+            }
 
-    var quantity =
-        document.getElementById("quantity").value;
+            var quantity = Number(quantityInput);
 
-    if (customer == "" && quantity == "") {
+            if (!Number.isInteger(quantity) || quantity <= 0) {
+                alert("Quantity must be a positive whole number");
+                return;
+            }
 
-        alert("Enter Customer Name and Quantity");
+            // Determine Price
+            var price = 0;
 
-    }
+            if (product === "Laptop") {
+                price = 50000;
+            } else if (product === "Mobile") {
+                price = 20000;
+            } else if (product === "Keyboard") {
+                price = 1500;
+            }
 
-    var price = 0;
+            // Calculate Total
+            var total = price * quantity;
 
-    if (product == "Laptop") {
-        price = 50000;
-    }
+            // Ask Customer Type
+            var customerType = prompt(
+                "Enter Customer Type: Regular or Premium"
+            );
 
-    if (product == "Mobile") {
-        price = 2000;
-    }
+            if (customerType === null || customerType.trim() === "") {
+                alert("Customer Type is required");
+                return;
+            }
 
-    if (product == "Keyboard") {
-        price = 1500;
-    }
+            customerType = customerType.trim();
 
-    var total =
-        price + quantity;
+            if (
+                customerType !== "Regular" &&
+                customerType !== "Premium"
+            ) {
+                alert("Customer Type must be Regular or Premium");
+                return;
+            }
 
-    var customerType =
-        prompt("Enter Customer Type: Regular or Premium");
+            // Ask Confirmation
+            var order = confirm("Do you want to place this order?");
 
-    var order =
-        confirm("Do you want to cancel this order?");
+            if (!order) {
+                alert("Order cancelled");
+                return;
+            }
 
-    if (order == true) {
+            // Generate and Display Bill
+            document.getElementById("billBox").innerHTML =
+                "<h2>Order Bill</h2>" +
+                "Customer: " + customer +
+                "<br>Product: " + product +
+                "<br>Price: Rs. " + price +
+                "<br>Quantity: " + quantity +
+                "<br>Total Amount: Rs. " + total +
+                "<br>Customer Type: " + customerType;
 
-        alert("Order placed successfully");
-
-    }
-
-    document.getElementById("bill").innerHTML =
-        "<h2>Order Bill</h2>" +
-        "Customer: " + customer +
-        "<br>Product: " + product +
-        "<br>Price: " + price +
-        "<br>Quantity: " + quantity +
-        "<br>Total Amount: " + total +
-        "<br>Customer Type: " + customerType;
-
-}
-
-</script>
+            // Success Alert
+            alert("Order placed successfully");
+        }
+    </script>
 
 </body>
-
 </html>
