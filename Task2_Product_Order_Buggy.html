@@ -1,30 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Product Order</title>
 
     <style>
 
         body {
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             background-color: #eeeeee;
+            margin: 0;
+            padding: 32px 16px;
         }
 
         #mainTitle {
-            text-align:center;
+            text-align: center;
             color: darkred;
         }
 
-        orderBox {
+        #orderBox {
             width: 450px;
             border: 2px solid black;
             margin: 20px auto;
-            padding: 20;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: white;
         }
 
         .field {
             margin-bottom: 15px;
+        }
+
+        label {
+            display: inline-block;
+            width: 130px;
+        }
+
+        input, select {
+            padding: 6px;
+            box-sizing: border-box;
         }
 
         .bill {
@@ -32,11 +47,14 @@
             border: 2px solid green;
             margin: 20px auto;
             padding: 15px;
+            box-sizing: border-box;
+            background-color: white;
         }
 
         #orderButton {
             padding: 10px;
             background: lightblue;
+            cursor: pointer;
         }
 
     </style>
@@ -84,7 +102,7 @@
     </div>
 
     <button id="orderButton"
-            onclick="calculate()">
+            onclick="calculateBill()">
 
         Generate Bill
 
@@ -103,17 +121,18 @@
 function calculateBill() {
 
     var customer =
-        document.getElementByID("customer").value;
+        document.getElementById("customer").value.trim();
 
     var product =
-        document.getElementById("products").value;
+        document.getElementById("product").value;
 
     var quantity =
-        document.getElementById("quantity").value;
+        Number(document.getElementById("quantity").value);
 
-    if (customer == "" && quantity == "") {
+    if (customer === "" || product === "" || !Number.isInteger(quantity) || quantity <= 0) {
 
-        alert("Enter Customer Name and Quantity");
+        alert("Please enter a customer name, select a product, and enter a valid quantity.");
+        return;
 
     }
 
@@ -124,7 +143,7 @@ function calculateBill() {
     }
 
     if (product == "Mobile") {
-        price = 2000;
+        price = 20000;
     }
 
     if (product == "Keyboard") {
@@ -132,21 +151,21 @@ function calculateBill() {
     }
 
     var total =
-        price + quantity;
+        price * quantity;
 
     var customerType =
         prompt("Enter Customer Type: Regular or Premium");
 
     var order =
-        confirm("Do you want to cancel this order?");
+        confirm("Do you want to place this order?");
 
-    if (order == true) {
+    if (order == false) {
 
-        alert("Order placed successfully");
+        return;
 
     }
 
-    document.getElementById("bill").innerHTML =
+    document.getElementById("billBox").innerHTML =
         "<h2>Order Bill</h2>" +
         "Customer: " + customer +
         "<br>Product: " + product +
