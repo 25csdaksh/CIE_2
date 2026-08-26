@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Online Product Order</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background-color: #eeeeee;
+        }
+
+        #mainTitle {
+            text-align:center;
+            color: darkred;
+        }
+
+        orderBox {
+            width: 450px;
+            border: 2px solid black;
+            margin: 20px auto;
+            padding: 20;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .bill {
+            width: 450px;
+            border: 2px solid green;
+            margin: 20px auto;
+            padding: 15px;
+        }
+
+        #orderButton {
+            padding: 10px;
+            background: lightblue;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1 id="mainTitle">Online Product Order</h1>
+
+<div id="orderBox">
+
+    <div class="field">
+
+        <label for="customer">Customer Name:</label>
+
+        <input type="text" id="customer">
+
+    </div>
+
+    <div class="field">
+
+        <label for="product">Select Product:</label>
+
+        <select id="product">
+
+            <option value="">Select Product</option>
+
+            <option value="Laptop">Laptop - Rs. 50000</option>
+
+            <option value="Mobile">Mobile - Rs. 20000</option>
+
+            <option value="Keyboard">Keyboard - Rs. 1500</option>
+
+        </select>
+
+    </div>
+
+    <div class="field">
+
+        <label for="quantity">Quantity:</label>
+
+        <input type="text" id="quantity">
+
+    </div>
+
+    <button id="orderButton"
+            onclick="calculate()">
+
+        Generate Bill
+
+    </button>
+
+</div>
+
+<div id="billBox" class="bill">
+
+    Bill will appear here.
+
+</div>
+
+<script>
+
+function calculateBill() {
+
+    var customer =
+        document.getElementByID("customer").value;
+
+    var product =
+        document.getElementById("products").value;
+
+    var quantity =
+        document.getElementById("quantity").value;
+
+    if (customer == "" && quantity == "") {
+
+        alert("Enter Customer Name and Quantity");
+
+    }
+
+    var price = 0;
+
+    if (product == "Laptop") {
+        price = 50000;
+    }
+
+    if (product == "Mobile") {
+        price = 2000;
+    }
+
+    if (product == "Keyboard") {
+        price = 1500;
+    }
+
+    var total =
+        price + quantity;
+
+    var customerType =
+        prompt("Enter Customer Type: Regular or Premium");
+
+    var order =
+        confirm("Do you want to cancel this order?");
+
+    if (order == true) {
+
+        alert("Order placed successfully");
+
+    }
+
+    document.getElementById("bill").innerHTML =
+        "<h2>Order Bill</h2>" +
+        "Customer: " + customer +
+        "<br>Product: " + product +
+        "<br>Price: " + price +
+        "<br>Quantity: " + quantity +
+        "<br>Total Amount: " + total +
+        "<br>Customer Type: " + customerType;
+
+}
+
+</script>
+
+</body>
+
+</html>
