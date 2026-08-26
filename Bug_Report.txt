@@ -1,0 +1,39 @@
+INTERNAL PRACTICAL EXAM — BUG REPORT
+=========================================
+
+Enrollment No. : 25CS102
+Student Name   : Daksh Soni
+Assigned Task : Task 3 - Product Order
+Date           : 26/08/2026
+
+BUG REPORT
+
+--------- --------- ----------------------------- ----------------------------- --------------------------
+| Bug No.| Level   | Error / Problem Found      | Correction Made            | Reason                     |
+--------- --------- ----------------------------- ----------------------------- --------------------------
+| 1      | S1      | text-align center         | Added : after text-align    | Correct CSS syntax         |
+| 2      | S2      | orderBox selector         | Changed to #orderBox        | It is an ID selector       |
+| 3      | S3      | padding: 20               | Changed to padding: 20px    | CSS unit is required       |
+| 4      | S4      | calculate() used          | Changed to calculateBill()  | Correct function name      |
+| 5      | S5      | getElementByID() used     | Changed to getElementById() | Correct DOM method         |
+| 6      | M1      | products ID used          | Changed to product          | Correct HTML ID            |
+| 7      | M2      | Quantity was text input   | Changed to number input     | Quantity must be numeric   |
+| 8      | M3      | Mobile price was 2000     | Changed to 20000            | Correct displayed price    |
+| 9      | M4      | bill ID used              | Changed to billBox          | Correct bill container     |
+| 10     | M5      | Validation was incorrect  | Added all required checks   | Required fields validation |
+| 11     | D1      | price + quantity used     | Changed to price * quantity | Correct total formula      |
+| 12     | D2      | Quantity validation absent| Added positive validation   | Reject invalid quantity    |
+| 13     | D3      | Customer type unchecked   | Added Regular/Premium check | Only valid types accepted  |
+| 14     | D4      | Wrong confirmation text   | Corrected confirmation      | Correct order flow         |
+| 15     | D5      | Billing flow incorrect    | Fixed complete sequence     | Follow required workflow   |
+
+
+
+SUMMARY
+-------
+15 bugs were identified and corrected:
+5 Simple-level bugs, 5 Medium-level bugs, and 5 Difficult-level bugs.
+The corrected program now follows:
+Read Input → Validate Customer → Validate Product → Validate Quantity
+→ Determine Price → Calculate Total → Customer Type → Confirmation
+→ Generate Bill → Success Alert.
